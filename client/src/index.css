@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+code,
+pre {
+  font-size: 14px;
+  font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier, monospace;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.landingPage {
+  background: #fb8500;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.landingPage h1 {
+  font-size: 8rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.ant-menu-item-selected {
+  color: #fb8500 !important;
+}
+
+.ant-menu-item {
+  background: none !important;
+  margin: 2rem 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-menu-item:not(:first-child):hover {
+  color: #fb8500 !important;
+}
+
+.ant-menu-item:first-child:hover {
+  color: #fff !important;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  height: 6rem !important;
+  align-items: center;
+}
+
+.main-header-content {
+  display: flex;
+  align-items: baseline;
+}
+
+.main-header-title {
+  font-size: 1rem;
+  color: #fb8500;
+}
+
+.main-header-subtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+table {
+  background: transparent !important;
+  border-spacing: 0 1rem !important;
+  border-collapse: separate !important;
+}
+
+.ant-table-thead > tr > th {
+  background: none !important;
+  color: #000 !important;
+}
+
+.ant-table {
+  background: transparent !important;
+}
+
+.ant-table-row > tr {
+  background: #e5e5e51a !important;
+}
+
+.ant-table-row > td {
+  background: #e5e5e51a !important;
+  border: 2px solid #e5e5e511 !important;
+}
+
+.wallet-address {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-right: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.danger,
+.danger:not(:disabled):hover {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.ant-upload,
+.ant-upload-drag {
+  background: rgba(251, 133, 0, 0.4);
+  color: #000;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px dashed #fb8500;
+}
+
+.heading {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin: 1rem 0;
+}
+
+.btn {
+  /* background-color: // primary blue; */
+  background-color: #0082fb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* .ant-btn-default:not(:disabled):hover {
+} */
+
+a {
+  text-decoration: none !important;
+}
