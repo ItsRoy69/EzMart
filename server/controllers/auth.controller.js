@@ -56,6 +56,7 @@ const loginUser = async (req, res) => {
     }
 
     if (user.role !== role) {
+      console.log(`User role: ${user.role}, Role from request: ${role}`);
       throw new Error("Role does not match the user's role.");
     }
 

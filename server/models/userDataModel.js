@@ -26,7 +26,7 @@ const userDataSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: ["Distributor", "Retailer"],
+    enum: ["distributor", "retailer"],
   },
 });
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./distributorProduct.css";
+import "./retailerProduct.css";
 
 import Widget from "../../../components/widgets/Widget";
-import { useNavigate } from "react-router-dom";
 
 import {
   Dashboard,
@@ -36,21 +35,7 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
 
-const DistributorProduct = ({ onAddItem }) => {
-  const navigate = useNavigate();
-  const [newItem, setNewItem] = useState({
-    title: "",
-    name: "",
-    quantity: 0,
-    quality: "",
-    description: "",
-    image: "",
-    price: 0,
-  });
-
-  const [items, setItems] = useState([]);
-
-
+const RetailerProduct = ({ onAddItem }) => {
   const rows = [
     {
       id: 1143155,
@@ -104,81 +89,8 @@ const DistributorProduct = ({ onAddItem }) => {
     },
   ];
 
-  useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const response = await axios.get("https://ezmart-backend.onrender.com/auth/signin");
-        const userid = response.data.userid;
-        setNewItem({ ...newItem, title: userid });
-      } catch (error) {
-        console.error("Error fetching userid:", error);
-      }
-    };
-
-    fetchUserId();
-  }, []);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewItem({ ...newItem, [name]: value });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setNewItem({ ...newItem, image: file });
-
-    sendImageToServer(file);
-  };
-
-  const handleAddItem = async () => {
-    try {
-      const response = await sendItemToServer(newItem);
-      if (response.data) {
-        onAddItem(response.data);
-        setNewItem({
-          title: "",
-          name: "",
-          quantity: 0,
-          quality: "",
-          description: "",
-          image: null,
-          price: 0,
-        });
-      }
-    } catch (error) {
-      console.error("Error sending item to the server:", error);
-    }
-  };
-
-  const sendItemToServer = async (item) => {
-    const formData = new FormData();
-
-    formData.append("title", item.title);
-    formData.append("name", item.name);
-    formData.append("quantity", item.quantity);
-    formData.append("quality", item.quality);
-    formData.append("description", item.description);
-    formData.append("image", item.image);
-    formData.append("price", item.price);
-
-    try {
-      const response = await axios.post(
-        "https://ezmart-backend.onrender.com/posts/distributorproduct",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  };
   return (
-    <div className="DistributorProduct">
+    <div className="RetailerProduct">
       <div className="sidebar">
         <div className="top">
           <span className="logo">EzMart</span>
@@ -280,67 +192,6 @@ const DistributorProduct = ({ onAddItem }) => {
           <Widget type="earning" />
           <Widget type="balance" />
         </div>
-        <div className="additems">
-          <h1>Add Items</h1>
-          <div className="item-form">
-            <input
-              type="text"
-              name="name"
-              placeholder="Item Name"
-              value={newItem.name}
-              onChange={handleInputChange}
-            />
-            <input
-              type="number"
-              name="quantity"
-              placeholder="Quantity"
-              value={newItem.quantity}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="quality"
-              placeholder="Quality"
-              value={newItem.quality}
-              onChange={handleInputChange}
-            />
-            <textarea
-              name="description"
-              placeholder="Description"
-              value={newItem.description}
-              onChange={handleInputChange}
-            />
-            <input
-              type="file"
-              name="image"
-              value={newItem.image}
-              onChange={handleImageChange}
-            />
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              value={newItem.price}
-              onChange={handleInputChange}
-            />
-            <button onClick={handleAddItem}>Add Item</button>
-          </div>
-          <div className="item-list">
-            <h2>Items List</h2>
-            <ul>
-              {items.map((item, index) => (
-                <li key={index}>
-                  <img src={URL.createObjectURL(item.image)} alt={item.name} />
-                  <p>Name: {item.name}</p>
-                  <p>Quantity: {item.quantity}</p>
-                  <p>Quality: {item.quality}</p>
-                  <p>Description: {item.description}</p>
-                  <p>Price: ${item.price}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
 
         <div className="listContainer">
           <div className="listTitle">Updated Products</div>
@@ -391,4 +242,4 @@ const DistributorProduct = ({ onAddItem }) => {
   );
 };
 
-export default DistributorProduct;
+export default RetailerProduct;

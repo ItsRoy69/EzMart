@@ -51,10 +51,9 @@ const Signin = () => {
         email,
         password,
         walletAddress: addresses[0],
-        role: textTitle,
+        role: textTitle.toLowerCase(),
       };
 
-      // Send the user data to the backend
       await axios.post("https://ezmart-backend.onrender.com/auth/signin", userData);
 
       toast.success("User details stored successfully");

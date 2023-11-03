@@ -16,9 +16,9 @@ router.get("/signin", (req, res) => {
 router.use("/dashboard", (req, res, next) => {
   const userRole = req.user?.role;
   if (userRole === "distributor") {
-    res.redirect("/dashboard2");
-  } else if (userRole === "retailer") {
     res.redirect("/dashboard");
+  } else if (userRole === "retailer") {
+    res.redirect("/products");
   } else {
     res.status(403).json({ error: "Unauthorized access." });
   }

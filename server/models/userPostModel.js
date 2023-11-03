@@ -15,10 +15,9 @@ const productSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   image: {
-    type: Buffer, // You can store images as binary data (Buffer) or use a URL to the image
+    type: Buffer,
     required: true,
   },
   price: {
