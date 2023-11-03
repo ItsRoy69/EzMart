@@ -1,62 +1,79 @@
-const RetailerData = require("../mongodb_models/retailerDataModel");
+const UserData = require("../models/userDataModel");
 const bcrypt = require("bcryptjs");
 
 const registerUser = async (req, res) => {
   try {
-    const { email, retailerId, password } = req.body;
-    const registerUserEmail = await RetailerData.find({ email });
-    if (registerUserEmail?.length > 0) {
-        throw new Error("Retailer already exists with this email.");
+    const { name, email, authorisedId, password, walletAddress, role } = req.body;
+
+    if (!name || !email || !authorisedId || !password || !walletAddress || !role) {
+      throw new Error("Please provide all required fields.");
     }
-    const registerUserID = await RetailerData.find({ retailerId });
-    if (registerUserID?.length > 0) {
-        throw new Error("Retailer already exists with this ID.");
+
+    const userWithEmail = await UserData.findOne({ email });
+    if (userWithEmail) {
+      throw new Error("User already exists with this email.");
     }
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const retailer = new RetailerData({...req.body, password: hashedPassword});
-    await retailer.save();
+
+    const userWithId = await UserData.findOne({ authorisedId });
+    if (userWithId) {
+      throw new Error("User already exists with this ID.");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new UserData({ name, email, authorisedId, password: hashedPassword, walletAddress, role });
+    await newUser.save();
     res.status(201).json({
-      message: `Retailer registered successfully`,
+      message: "User registered successfully",
     });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ error: error.message ?? "An error occurred while registering the retailer." });
+    res.status(500).json({ error: error.message });
   }
 };
 
 const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const retailer = await RetailerData.findOne({ email });
+    const { email, password, walletAddress, role } = req.body;
 
-    if (!retailer) {
-      throw new Error("Retailer not found.");
+    if (!email || !password || !walletAddress || !role) {
+      throw new Error("Please provide email, password, walletAddress, and role.");
     }
 
-    const comparePassword = await bcrypt.compare(password, retailer.password);
+    const user = await UserData.findOne({ email });
 
-    if (!comparePassword) {
+    if (!user) {
+      throw new Error("User not found.");
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
       throw new Error("Invalid password.");
     }
 
-    const user = {
-      name:retailer.name,
-      id: retailer._id,
-      email: retailer.email,
-      role: retailer.role // Assuming 'role' is a property in the RetailerData schema
+    if (user.walletAddress !== walletAddress) {
+      throw new Error("Wallet address does not match the user's address.");
+    }
+
+    if (user.role !== role) {
+      throw new Error("Role does not match the user's role.");
+    }
+
+    const userData = {
+      name: user.name,
+      id: user._id,
+      email: user.email,
+      role: user.role,
     };
 
-    res.status(200).json({ user });
+    res.status(200).json({ user: userData });
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      error: error.message ?? "An error occurred while logging in."
+      error: error.message,
     });
   }
 };
-
 
 
 module.exports = { registerUser, loginUser };

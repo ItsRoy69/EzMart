@@ -1,0 +1,16 @@
+.navbarContainer {
+    width: 100%;
+    height: 100px;
+    padding: 0rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #000000;
+  }
+  
+  .navbar-logo {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  
