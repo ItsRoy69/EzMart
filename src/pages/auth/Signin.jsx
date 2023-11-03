@@ -55,7 +55,7 @@ const Signin = () => {
       };
 
       // Send the user data to the backend
-      await axios.post("http://localhost:5000/auth/signin", userData);
+      await axios.post("https://ezmart-backend.onrender.com/auth/signin", userData);
 
       toast.success("User details stored successfully");
       navigate("/dashboard");

@@ -105,7 +105,7 @@ const DistributorProduct = ({ onAddItem }) => {
     // Fetch the userid from the server
     const fetchUserId = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/auth/signin");
+        const response = await axios.get("https://ezmart-backend.onrender.com/auth/signin");
         const userid = response.data.userid;
         setNewItem({ ...newItem, title: userid });
       } catch (error) {
@@ -162,7 +162,7 @@ const DistributorProduct = ({ onAddItem }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/posts/distributorproduct",
+        "https://ezmart-backend.onrender.com/posts/distributorproduct",
         formData,
         {
           headers: {

@@ -61,7 +61,7 @@ const Signup = () => {
       };
 
       // Send the user data to the backend
-      await axios.post("http://localhost:5000/auth/create", userData);
+      await axios.post("https://ezmart-backend.onrender.com/auth/create", userData);
 
       toast.success("User details stored successfully");
       navigate("/dashboard");
